@@ -1,0 +1,146 @@
+/* 
+
+SETTINGS 
+
+*/
+
+:root {
+    --color-alpha: #de4831;
+    --color-beta: #e1decb;
+    --color-dark: #221e21;
+    --gutter: 24px;
+}
+
+/* 
+
+ELEMENTS 
+
+*/
+
+body, html {
+    /* Positioning */
+    /* Box model */
+    /* Fonts */
+    font-family: "Sarabun", sans-serif;
+    line-height: 1.6;
+    color: var(--color-dark);
+    font-size: 17px;
+    /* Apperance */
+    /* Other styles */
+}
+
+/* 
+
+OBJECTS
+
+*/
+
+.o-grid {
+    /* Positioning */
+    display: grid;
+    gap: calc(var(--gutter) *2);
+    /* Box model */
+    /* Fonts */
+    /* Apperance */
+    /* Other styles */
+}
+
+.o-grid--main-layout {
+    grid-template-columns: 350px 1fr;
+    grid-template-rows: 100vh;
+}
+
+/* 
+
+COMPONENTS
+
+*/
+
+/* sidbar */
+
+.c-sidebar {
+    /* Positioning */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--gutter);
+    /* box-sizing: border-box; --> add padding inside the box */
+    /* Box model */
+    /* Fonts */
+    /* Apperance */
+    overflow-x: auto;
+    background: var(--color-beta);
+    /* Other styles */
+}
+
+/* sidebar header */
+
+.c-sidebar-header {
+    display: flex;
+    align-items: center;
+}
+
+.c-sidebar-header__title {
+    font-size: 1rem;
+    /* relatieve tenopzichte van de body */
+    margin-left: calc(var(--gutter)/2);
+}
+
+.c-sidebar-header__image {
+    width: 24px;
+}
+
+.c-sidebar-menu {}
+
+.c-sidebar-counter {
+    /* fonts */
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+/* menu */
+
+.c-menu__title {
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+.c-menu__list {
+    margin: 0 0 calc(var(--gutter)*3);
+    padding: 0;
+    list-style: none;
+}
+
+.c-menu__item {}
+
+.c-menu__link {
+    all: unset;
+    color: var(--color-alpha);
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: .7;
+    will-change: opacity;
+    transition: opacity 200ms easy-out;
+    cursor: pointer;
+}
+
+.c-menu__link:hover {
+    opacity: 1;
+}
+
+.c-content {
+    overflow: auto;
+}
+
+/* 
+
+UTILITIES
+
+*/
+
+.u-color-alpha {
+    color: var(--color-alpha);
+}
