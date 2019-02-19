@@ -185,6 +185,35 @@ COMPONENTS
     margin: 0;
 }
 
+.c-button {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+}
+
+.c-button--reset {
+    float: right;
+    color: #ffffff;
+    background-color: #d9534f;
+}
+
+.c-button--reset:hover {
+    background-color: #ac2925;
+}
+
 /* 
 
 UTILITIES
@@ -194,3 +223,5 @@ UTILITIES
 .u-color-alpha {
     color: var(--color-alpha);
 }
+
+.u-right {}
