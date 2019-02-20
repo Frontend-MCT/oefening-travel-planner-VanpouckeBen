@@ -3,6 +3,7 @@ let amountHolder;
 const localkey = 'travel-planner';
 let selectedCountries = [];
 let choosenCountry = "europe";
+let notificationsHolder;
 const enableListeners = () => {
     //1. get some buttonsjs-region-select
     const regionButtons = document.querySelectorAll(".js-region-select");
@@ -31,6 +32,7 @@ const enableListeners = () => {
     // globaal toevoegen want de dom aanspreken vertraagd ons proces dus zo weinig mogelijk dit doen.
     countryHolder = document.querySelector(".js-country-holder");
     amountHolder = document.querySelector(".js-amount");
+    notificationsHolder = document.querySelector(".js-notification-holder");
     //always start with europe.
     fetchCountries(choosenCountry);
     updateCounter();
@@ -53,7 +55,7 @@ const showCountries = (countries) => {
         // maak nieuw article aan
         countriesString +=
             `<article><input type="checkbox" id="${code}" class="o-hide c-country-input" ${checked}>
-        <label for="${code}" class="c-country js-country">
+        <label for="${code}" class="c-country js-country" data-country-name="${country.name}">
             <div class="c-country-header">
                 <h2 class="c-country-header__name">${country.name}</h2>
                 <img src="${country.flag}" alt="The flag of ${country.name.toLowerCase()}" class="c-country-header__flag">
@@ -74,13 +76,17 @@ const showCountries = (countries) => {
 
 const addListenersToCountries = function (classSelector) {
     const countries = document.querySelectorAll(classSelector);
-    for (const Country of countries) {
-        Country.addEventListener('click', function () {
+    for (const country of countries) {
+        country.addEventListener('click', function () {
+
             //console.log(this.getAttribute('for'));
             countryKey = this.getAttribute('for');
 
             //sla op of verwijder uit local storage
             hasLocalCountry(countryKey) ? removeLocalCountry(countryKey) : addLocalCountry(countryKey);
+
+            //shownotification => we moeten naar de vorige status terug keren (aangezien we deze hierboven al weizeigen)
+            showNotification(country, !hasLocalCountry(countryKey))
 
             //getal updaten.
             updateCounter()
@@ -88,6 +94,59 @@ const addListenersToCountries = function (classSelector) {
 
     }
 }
+const showNotification = (element, isRemoved) => {
+    //1. zin opbouwen
+    let countryName = element.dataset.countryName;
+    let notificationText = isRemoved ? "You have removed " + countryName : "You have selected " + countryName;
+    //2. show in js-notification-holder;
+    let notification = document.createElement('div');
+    notification.classList.add('c-notification');
+
+    notification.innerHTML = `
+    
+                <h2 class="c-notification__header">
+                    ${notificationText}
+                </h2>
+               
+            
+    `
+    //undo button
+    let undoButton = document.createElement("button");
+    undoButton.classList.add('c-notification__action');
+    undoButton.innerHTML = 'Undo';
+    undoButton.addEventListener("click", function () {
+        //haal for attribute op (country key)
+        countryKey = element.getAttribute('for');
+        //kijk wat de vorige status was. bij verwijderen voeg je hem weer toe en omgekeerd      
+        isRemoved ? addLocalCountry(countryKey) : removeLocalCountry(countryKey);
+
+        //input attribute checked switchen.
+        element.previousElementSibling.checked = !element.previousElementSibling.checked
+        //haal alle countries terug op om de verandering in de ui te tonen. --> slechter alternatief.        
+        //fetchCountries(choosenCountry);
+    });
+    notification.append(undoButton);
+
+    //voeg notficatie toe aan holder
+    notificationsHolder.append(notification);
+
+
+
+    //4. fade out after 800ms;
+    setTimeout(() => {
+        fadeAndRemoveNotification(notification);
+    }, 1500);
+
+
+}
+const fadeAndRemoveNotification = notification => {
+    notification.classList.add('u-fade-out');
+    notification.addEventListener('transitionend', function () {
+
+        notificationsHolder.removeChild(notification);
+    })
+}
+
 const updateCounter = () => {
     amountHolder.innerHTML = countLocalCountries();
 }

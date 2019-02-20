@@ -105,8 +105,6 @@ COMPONENTS
     width: 24px;
 }
 
-.c-sidebar-menu {}
-
 .c-sidebar-counter {
     /* fonts */
     font-size: .9rem;
@@ -127,8 +125,6 @@ COMPONENTS
     padding: 0;
     list-style: none;
 }
-
-.c-menu__item {}
 
 .c-menu__link {
     all: unset;
@@ -207,12 +203,49 @@ COMPONENTS
 .c-button--reset {
     float: right;
     color: #ffffff;
-    background-color: #d9534f;
+    background-color: var(--color-alpha);
 }
 
 .c-button--reset:hover {
     background-color: #ac2925;
 }
+
+.c-notifications {
+    position: absolute;
+    bottom: 0;
+    right: calc(var(--gutter)*2);
+    width: 300px
+}
+
+.c-notification {
+    margin: var(--gutter) 0;
+    padding: calc(var(--gutter)/2);
+    background: #FFFfff;
+    box-shadow: 1px 1px 2px 1px rgba(30, 30, 30, .1);
+    will-change: opacity;
+    opacity: 1;
+    transition: opacity 800ms ease-in-out;
+}
+
+.c-notification__header {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.c-notification__action {
+    all: unset;
+    font-size: .9rem;
+    display: block;
+    color: var(--color-alpha);
+    text-decoration: underline;
+    text-transform: uppercase;
+    cursor: pointer;
+    will-change: opacity;
+    opacity: .5;
+    transition: opacity 200ms ease-in-out;
+}
+
+.c-notification__action:hover {}
 
 /* 
 
@@ -224,4 +257,6 @@ UTILITIES
     color: var(--color-alpha);
 }
 
-.u-right {}
+.u-fade-out {
+    opacity: 0;
+}
