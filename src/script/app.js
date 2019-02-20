@@ -133,19 +133,38 @@ const showNotification = (element, isRemoved) => {
 
 
     //4. fade out after 800ms;
-    setTimeout(() => {
+    let timer = setTimer(notification);
+
+    //indien men in het venster gaat staan.
+    notification.addEventListener('mouseover', function () {
+        //remove timer
+        clearTimeout(timer);
+    });
+
+    notification.addEventListener('mouseout', function () {
+        //addtimer
+        timer = setTimer(notification);
+    });
+}
+
+const setTimer = (notification) => {
+    return setTimeout(() => {
         fadeAndRemoveNotification(notification);
     }, 1500);
-
-
 }
 const fadeAndRemoveNotification = notification => {
+    //starten uit faden
     notification.classList.add('u-fade-out');
+
+
+
+    //na de transitie de notificatie uit het dom verwijderen.
     notification.addEventListener('transitionend', function () {
 
         notificationsHolder.removeChild(notification);
     })
 }
+
 
 const updateCounter = () => {
     amountHolder.innerHTML = countLocalCountries();
