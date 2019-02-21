@@ -16,9 +16,27 @@
 
     <!-- scripts -->
     <script src="script/app.js"></script>
-    <div class="o-grid o-grid--main-layout ">
 
-        <aside class="c-sidebar">
+</head>
+
+<body>
+
+    <div class="c-mobile-nav">
+        <header class="c-mobile-nav-header">
+            <img src="favicon-32.png" alt="World-Icon" class="c-mobile-nav-header__image" title="Hover me">
+            <h1 class="c-mobile-nav-header__title">Travel Planner</h1>
+        </header>
+
+        <button class="o-button-reset c-mobile-nav-trigger js-toggle-nav">
+            <svg class="c-mobile-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+            </svg>
+        </button>
+
+    </div>
+
+    <div class="o-grid o-grid--main-layout ">
+        <aside class="c-sidebar js-sidebar">
             <header class="c-sidebar-header">
                 <img src="favicon-32.png" alt="World-Icon" class="c-sidebar-header__image" title="Hover me">
                 <h1 class="c-sidebar-header__title">Travel Planner</h1>
@@ -56,10 +74,6 @@
 
         </aside>
     </div>
-</head>
-
-<body>
-
 </body>
 
 </html>

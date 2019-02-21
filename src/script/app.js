@@ -4,6 +4,7 @@ const localkey = 'travel-planner';
 let selectedCountries = [];
 let choosenCountry = "europe";
 let notificationsHolder;
+let sidebarHolder;
 const enableListeners = () => {
     //1. get some buttonsjs-region-select
     const regionButtons = document.querySelectorAll(".js-region-select");
@@ -26,17 +27,28 @@ const enableListeners = () => {
             fetchCountries(choosenCountry);
         })
     }
-
+    //listen to mobile nav
+    const navButton = document.querySelector(".js-toggle-nav");
+    navButton.addEventListener("click", toogleNav)
+    //listen to reset
     const resetbutton = document.querySelector(".js-reset-progress");
     resetbutton.addEventListener("click", resetLocalCountries);
+
     // globaal toevoegen want de dom aanspreken vertraagd ons proces dus zo weinig mogelijk dit doen.
     countryHolder = document.querySelector(".js-country-holder");
     amountHolder = document.querySelector(".js-amount");
     notificationsHolder = document.querySelector(".js-notification-holder");
+    sidebarHolder = document.querySelector(".js-sidebar");
     //always start with europe.
     fetchCountries(choosenCountry);
     updateCounter();
+
+
 };
+const toogleNav = () => {
+    sidebarHolder.classList.toggle("c-sidebar-mobile");
+
+}
 
 const fetchCountries = (region) => {
     fetch("https://restcountries.eu/rest/v2/region/" + region)

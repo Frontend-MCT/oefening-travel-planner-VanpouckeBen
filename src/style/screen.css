@@ -35,23 +35,23 @@ OBJECTS
 
 */
 
-.o-grid {
-    /* Positioning */
-    display: grid;
-    gap: calc(var(--gutter) *2);
-    /* Box model */
-    /* Fonts */
-    /* Apperance */
-    /* Other styles */
-}
-
-.o-grid--main-layout {
-    grid-template-columns: 350px 1fr;
-    grid-template-rows: 100vh;
-}
-
-.o-grid--overview {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+@media (min-width:650px) {
+    .o-grid {
+        /* Positioning */
+        display: grid;
+        gap: calc(var(--gutter) *2);
+        /* Box model */
+        /* Fonts */
+        /* Apperance */
+        /* Other styles */
+    }
+    .o-grid--main-layout {
+        grid-template-columns: 350px 1fr;
+        grid-template-rows: 100vh;
+    }
+    .o-grid--overview {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 }
 
 .o-hide {
@@ -65,16 +65,75 @@ OBJECTS
     border: 0;
 }
 
+/*
+    Object: Button reset
+    ---
+    Small button reset object
+*/
+
+.o-button-reset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none;
+}
+
 /* 
 
 COMPONENTS
 
 */
 
-/* sidbar */
+.c-mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 var(--gutter);
+}
+
+.c-mobile-nav-header {
+    display: flex;
+    align-items: center;
+}
+
+.c-mobile-nav-header__title {
+    font-size: 1rem;
+    /* relatieve tenopzichte van de body */
+    margin-left: calc(var(--gutter)/2);
+}
+
+.c-mobile-nav-header__image {
+    width: 24px;
+}
+
+.c-mobile-nav-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0px;
+    width: 24px;
+    height: 24px;
+}
+
+.c-mobile-nav-trigger__svg {
+    fill: var(--color-dark);
+    height: 100%;
+}
 
 .c-sidebar {
-    /* Positioning */
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -86,13 +145,34 @@ COMPONENTS
     overflow-x: auto;
     background: var(--color-beta);
     /* Other styles */
+    will-change: transform;
+    transform: translateY(-398px);
+    /* 300 + 24 + 24 + 50 */
+    transition: transform 500ms ease-in-out;
+}
+
+.c-content {
+    will-change: transform;
+    transform: translateY(-348px);
+    /* 300 + 24 + 24*/
+    transition: transform 500ms ease-in-out;
+    overflow: auto;
+    padding: var(--gutter) calc(var(--gutter)*2) var(--gutter) var(--gutter);
+}
+
+.c-sidebar.c-sidebar-mobile {
+    display: flex;
+    transform: translateY(0);
+}
+
+.c-sidebar.c-sidebar-mobile+.c-content {
+    transform: translateY(0);
 }
 
 /* sidebar header */
 
 .c-sidebar-header {
-    display: flex;
-    align-items: center;
+    display: none;
 }
 
 .c-sidebar-header__title {
@@ -109,6 +189,28 @@ COMPONENTS
     /* fonts */
     font-size: .9rem;
     font-weight: 600;
+}
+
+@media (min-width:650px) {
+    .c-content {
+        padding-left: 0;
+        transform: translateY(0);
+    }
+    /* mobile nav */
+    .c-mobile-nav {
+        display: none;
+    }
+    /* sidbar */
+    .c-sidebar {
+        /* Positioning */
+        display: flex;
+        height: auto;
+        transform: translateY(0);
+    }
+    .c-sidebar-header {
+        display: flex;
+        align-items: center;
+    }
 }
 
 /* menu */
@@ -140,11 +242,6 @@ COMPONENTS
 
 .c-menu__link:hover {
     opacity: 1;
-}
-
-.c-content {
-    overflow: auto;
-    padding: var(--gutter) calc(var(--gutter)*2) var(--gutter) 0;
 }
 
 /* country */
